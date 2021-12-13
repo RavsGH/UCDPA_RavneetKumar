@@ -59,4 +59,32 @@ print('Distribution of Weight among the dataset')
 correlation_exc=exercise_data_merged.corr()
 plt.figure(figsize=(8,8))
 sns.heatmap(correlation_exc, cbar=True, square=True,  cmap='Blues')
-plt.show()
+#plt.show()
+
+# Gender data is non-numeric, hence convert this classified data into numerical
+exercise_data_merged.replace({'Gender':{'male': 0 , 'female': 1}}, inplace=True)
+print(exercise_data_merged.head())
+
+# Divide dataset into observations(X) and target(y)
+X=exercise_data_merged.drop(columns=['User_ID','Calories'], axis=1)
+print('print first five rows of observations')
+print(X.head())
+y=exercise_data_merged['Calories']
+print('print first five rows of target')
+print(y.head())
+
+# Divide the observations/target further into training and test data
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2,random_state=2)
+print(X.shape, X_train.shape, y_train.shape, X_test.shape, y_test.shape)
+
+# Define model from regressor and train with training dataset
+model=XGBRegressor()
+model.fit(X_train,y_train)
+
+#predicting with the test data
+predict_calories=model.predict(X_test)
+print('print the target predicted using test data')
+print(predict_calories)
+
+#plt.bar(X_test,y_test)
+#plt.show()
