@@ -57,7 +57,7 @@ print('Distribution of Weight among the dataset')
 
 # derive the correaltion using the heatmap
 correlation_exc=exercise_data_merged.corr()
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(6,8))
 sns.heatmap(correlation_exc, cbar=True, square=True,  cmap='Blues')
 #plt.show()
 
@@ -86,5 +86,6 @@ predict_calories=model.predict(X_test)
 print('print the target predicted using test data')
 print(predict_calories)
 
-#plt.bar(X_test,y_test)
-#plt.show()
+# Validate the error using mean absolute error
+mae=metrics.mean_absolute_error(y_test, predict_calories)
+print('Mean Absolute Error in prediction', mae)
