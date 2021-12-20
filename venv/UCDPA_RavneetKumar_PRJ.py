@@ -126,19 +126,13 @@ if __name__ == '__main__':
         "gamma": [0.0, 0.1, 0.2, 0.3, 0.4], 
         "colsample_bytree": [0.1, 0.2, 0.3, 0.4, 0.5, 0.7]
         }
-    print('1')
-    
+
     random_search = RandomizedSearchCV(model, param_distributions=params, n_iter=5, \
                                       scoring='r2', n_jobs=-1, cv=5, verbose=3)
-    print('2')
     random_search.fit(X_train, y_train)
-    print('3')
     print('Best parameters for the model are:-')
     print(random_search.best_estimator_)
-    print('4')
     y_hyper_pred = random_search.predict(X_test)
-    print('5')
     print(y_hyper_pred)
     hyper_mae = metrics.mean_absolute_error(y_test, y_hyper_pred)
     print('MAE after hyper parameter tuning is: ', hyper_mae)
-    print('6')
